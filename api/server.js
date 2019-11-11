@@ -1,12 +1,14 @@
 const express = require('express');
 
-const authRouter = require('./auth/auth-router');
+const apiRouter = require('./api-router')
 const configMW = require('./middleware/config-mw');
 
 const server = express();
 
 configMW(server);
 
-server.use(('/auth', authRouter));
+server.use('/api', apiRouter);
+
+
 
 module.exports = server;
