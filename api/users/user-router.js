@@ -1,15 +1,15 @@
-const router = require('express').Router();
+const router = require("express").Router();
 
-const Users = require('./user-model');
-const authMW = require('../middleware/auth-mw');
+const Users = require("./user-model");
+const restricted = require("../middleware/restricted-mw");
 
-router.get('/', authMW, (req, res) => {
+router.get("/", restricted, (req, res) => {
   Users.find()
     .then(users => {
       res.json(users);
     })
     .catch(err => {
-      console.log('Error...', err);
+      console.log("Error...", err);
       res.status(500).json(err);
     });
 });

@@ -16,7 +16,9 @@ const sessionConfig = {
   saveUninitialized: true
 };
 
+
 const server = express();
+server.use(express.json());
 
 configMW(server);
 

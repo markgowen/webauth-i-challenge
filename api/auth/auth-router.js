@@ -5,20 +5,20 @@ const router = require("express").Router();
 const Users = require("../users/user-model");
 
 router.post("/register", (req, res) => {
+  console.log("Body..", req.body);
   let userInfo = req.body;
 
-  bcrypt.hashSync(userInfo.password, 12, (err, hashedPassword) => {
-    userInfo.password = hashedPassword;
+  const hash = bcrypt.hashSync(userInfo.password, 12);
+  userInfo.password = hash;
 
-    Users.insert(userInfo)
-      .then(saved => {
-        res.status(201).json(saved);
-      })
-      .catch(err => {
-        console.log("Error", err);
-        res.status(500).json(err);
-      });
-  });
+  Users.insert(userInfo)
+    .then(saved => {
+      res.status(201).json(saved);
+    })
+    .catch(err => {
+      console.log("Error", err);
+      res.status(500).json(err);
+    });
 });
 
 router.post("/login", (req, res) => {
